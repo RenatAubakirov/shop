@@ -1,4 +1,3 @@
-// src/components/ProductCard/ProductCard.js
 import React from 'react';
 import {
   Card,
@@ -9,27 +8,28 @@ import {
   HoverImage,
   CardContainer,
   ImageContainer,
+  ReviewsButton,
 } from './ProductCard.styles';
+import { useNavigate } from 'react-router-dom';
 
-// Компонент ProductCard, который принимает пропсы: product (данные о товаре) и onAddToCart (функция для добавления товара в корзину)
-const ProductCard = ({ product, onAddToCart }) => {
+const ProductCard = ({ product, onAddToCart, onAddReview }) => {
+  const navigate = useNavigate();
+
+  const handleReviewsClick = () => {
+    navigate(`/reviews/${product.id}`); // Переход на страницу отзывов для конкретного товара
+  };
+
   return (
     <CardContainer>
-      {/* Основная карточка товара */}
       <Card>
-        {/* Контейнер для изображений товара */}
         <ImageContainer>
-          {/* Основное изображение товара */}
           <ProductImage src={product.image} alt={product.name} />
-          {/* Изображение при наведении (hover) */}
           <HoverImage src={product.hoverImage} alt={`${product.name} Hover`} />
         </ImageContainer>
-        {/* Название товара */}
         <ProductName>{product.name}</ProductName>
-        {/* Цена товара, отформатированная до двух знаков после запятой */}
         <ProductPrice>${product.price.toFixed(2)}</ProductPrice>
-        {/* Кнопка для добавления товара в корзину */}
         <AddToCartButton onClick={onAddToCart}>Купить товар</AddToCartButton>
+        <ReviewsButton onClick={handleReviewsClick}>Отзывы</ReviewsButton>
       </Card>
     </CardContainer>
   );

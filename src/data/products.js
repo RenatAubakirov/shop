@@ -16,13 +16,14 @@ const products = [
       image: require('../static/products/5619496040738316-1-product.webp'), 
       hoverImage: require('../static/products/5619496040738316-2-product.webp'),
     },
-    {
+    
+      {
         id: 3,
-        name: 'Loose Black T-shirt',
+        name: 'Cropped Stay Groovy off white',
         price: 10.90,
         sizes: ['S', 'M', 'L'],
-        image: require('../static/products/6090484789343891-1-product.webp'),
-        hoverImage: require('../static/products/6090484789343891-2-product.webp'), 
+        image: require('../static/products/9197907543445676-1-product.webp'), 
+        hoverImage: require('../static/products/9197907543445676-2-product.webp'),
       },
       {
         id: 4,

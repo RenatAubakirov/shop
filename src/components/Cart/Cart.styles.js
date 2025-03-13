@@ -111,7 +111,7 @@ export const SizeSelector = styled.span`
 `;
 
 export const CheckoutButton = styled.button`
-  background-color: rgb(16, 209, 103);
+  background-color: #ffd700;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -165,7 +165,7 @@ export const Input = styled.input`
 `;
 
 export const SubmitButton = styled.button`
-  background-color:rgb(16, 209, 103);
+  background-color: #ffd700;
   color: white;
   border: none;
   padding: 10px 20px;
