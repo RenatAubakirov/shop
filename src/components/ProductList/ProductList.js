@@ -7,7 +7,6 @@ const ProductList = ({ products, onAddToCart, reviews, onAddReview }) => {
   const [selectedSizes, setSelectedSizes] = useState({});
   const location = useLocation();
 
-  // Показывать ли селектор размеров
   const showSizeSelector = !['/reviews', '/contacts'].includes(location.pathname);
 
   const handleSizeChange = (productId, size) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   ProductImage,
@@ -10,13 +10,22 @@ import {
   ImageContainer,
   ReviewsButton,
 } from './ProductCard.styles';
-import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product, onAddToCart, onAddReview }) => {
-  const navigate = useNavigate();
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [newReview, setNewReview] = useState({ text: '', rating: 5 });
 
   const handleReviewsClick = () => {
-    navigate(`/reviews/${product.id}`); // Переход на страницу отзывов для конкретного товара
+    setShowReviewForm(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (newReview.text.trim()) {
+      onAddReview(product.id, newReview); // Передаем product.id
+      setNewReview({ text: '', rating: 5 });
+      setShowReviewForm(false);
+    }
   };
 
   return (
@@ -29,7 +38,27 @@ const ProductCard = ({ product, onAddToCart, onAddReview }) => {
         <ProductName>{product.name}</ProductName>
         <ProductPrice>${product.price.toFixed(2)}</ProductPrice>
         <AddToCartButton onClick={onAddToCart}>Купить товар</AddToCartButton>
-        <ReviewsButton onClick={handleReviewsClick}>Отзывы</ReviewsButton>
+        <ReviewsButton onClick={handleReviewsClick}>Оставить отзыв</ReviewsButton>
+        {showReviewForm && (
+          <form onSubmit={handleSubmit}>
+            <h3>Отзыв о товаре: {product.name}</h3>
+            <textarea
+              value={newReview.text}
+              onChange={(e) => setNewReview({ ...newReview, text: e.target.value })}
+              placeholder="Напишите ваш отзыв"
+              required
+            />
+            <select
+              value={newReview.rating}
+              onChange={(e) => setNewReview({ ...newReview, rating: Number(e.target.value) })}
+            >
+              {[5, 4, 3, 2, 1].map((star) => (
+                <option key={star} value={star}>{star} звезд</option>
+              ))}
+            </select>
+            <button type="submit">Отправить</button>
+          </form>
+        )}
       </Card>
     </CardContainer>
   );

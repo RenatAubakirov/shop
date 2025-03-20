@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, Routes, Route } from 'react-router-dom'; // useLocation импортирован
+import { useLocation, Routes, Route } from 'react-router-dom';
 import products from './data/products';
 import ProductList from './components/ProductList/ProductList';
 import Cart from './components/Cart/Cart';
@@ -14,7 +14,7 @@ function App() {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [reviews, setReviews] = useState({});
 
-  const location = useLocation(); // Хук useLocation используется правильно здесь
+  const location = useLocation();
 
   const handleAddToCart = (product, size) => {
     const existingItem = cartItems.find(
@@ -61,10 +61,27 @@ function App() {
   };
 
   const handleAddReview = (productId, review) => {
-    setReviews((prevReviews) => ({
-      ...prevReviews,
-      [productId]: [...(prevReviews[productId] || []), review],
-    }));
+    setReviews((prevReviews) => {
+      const updatedReviews = { ...prevReviews };
+      if (!updatedReviews[productId]) {
+        updatedReviews[productId] = [];
+      }
+      updatedReviews[productId].push({ ...review, productId: productId });
+      return updatedReviews;
+    });
+  };
+
+  const handleDeleteReview = (productId, reviewIndex) => {
+    setReviews((prevReviews) => {
+      const updatedReviews = { ...prevReviews };
+      if (updatedReviews[productId]) {
+        updatedReviews[productId].splice(reviewIndex, 1);
+        if (updatedReviews[productId].length === 0) {
+          delete updatedReviews[productId];
+        }
+      }
+      return updatedReviews;
+    });
   };
 
   const allSizes = [...new Set(products.flatMap((product) => product.sizes))];
@@ -73,7 +90,6 @@ function App() {
     <AppContainer>
       <Sidebar>
         <Menu />
-        {/* Условное отображение фильтра */}
         {location.pathname === '/' && (
           <Filters
             sizes={allSizes}
@@ -92,15 +108,14 @@ function App() {
                 <ProductList
                   products={filteredProducts}
                   onAddToCart={handleAddToCart}
-                  reviews={reviews}
                   onAddReview={handleAddReview}
                 />
               </ProductSection>
             }
           />
           <Route
-            path="/reviews"
-            element={<ReviewsPage reviews={reviews} onAddReview={handleAddReview} />}
+            path="/reviews/:productId?"
+            element={<ReviewsPage reviews={reviews} onAddReview={handleAddReview} onDeleteReview={handleDeleteReview} products={products} />}
           />
           <Route path="/contacts" element={<ContactsPage />} />
         </Routes>

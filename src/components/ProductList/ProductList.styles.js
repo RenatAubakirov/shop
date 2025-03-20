@@ -21,3 +21,4 @@ export const SizeSelector = styled.select`
   background-color: white;
   cursor: pointer;
 `;
+

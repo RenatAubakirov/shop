@@ -61,3 +61,13 @@ export const SubmitButton = styled.button`
     color: black;
   }
 `;
+export const DeleteButton = styled.button`
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+`;
