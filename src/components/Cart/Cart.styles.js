@@ -111,7 +111,7 @@ export const SizeSelector = styled.span`
 `;
 
 export const CheckoutButton = styled.button`
-  background-color: #ffd700;
+  background-color:rgb(42, 212, 36);
   color: white;
   border: none;
   padding: 10px 20px;
