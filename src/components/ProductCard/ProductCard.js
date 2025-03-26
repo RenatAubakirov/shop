@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import {
-  Card,
-  ProductImage,
-  ProductName,
-  ProductPrice,
-  AddToCartButton,
-  HoverImage,
-  CardContainer,
-  ImageContainer,
-  ReviewsButton,
-} from './ProductCard.styles';
+  Card, 
+  ProductImage, 
+  ProductName, 
+  ProductPrice, 
+  AddToCartButton, 
+  HoverImage, 
+  CardContainer, 
+  ImageContainer, 
+  ReviewsButton, 
+} from './ProductCard.styles'; 
 
 const ProductCard = ({ product, onAddToCart, onAddReview }) => {
   // useState для управления состоянием отображения формы отзыва
@@ -18,9 +18,10 @@ const ProductCard = ({ product, onAddToCart, onAddReview }) => {
   // useState для хранения данных нового отзыва
   const [newReview, setNewReview] = useState({ text: '', rating: 5 });
 
-  // Функция для открытия формы отзыва
+  // Функция для открытия/закрытия формы отзыва
   const handleReviewsClick = () => {
-    setShowReviewForm(true);
+    // Инвертируем текущее состояние, чтобы скрыть или показать форму
+    setShowReviewForm(!showReviewForm);
   };
 
   // Функция для обработки отправки формы отзыва
